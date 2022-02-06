@@ -1,0 +1,22 @@
+.container {
+
+    .word{
+        display: inline-block;
+        &:not(:first-of-type){
+            margin-left: 20px;
+        }
+    }
+    .letter {
+        display: inline-block;
+        text-align: center;
+        width: 1rem;
+        font-size: 1rem;
+        border-bottom: 3px solid transparent;
+        &:empty {
+            border-color: black;
+        }
+        &:not(:first-of-type){
+            margin-left: 3px;
+        }
+    }
+}

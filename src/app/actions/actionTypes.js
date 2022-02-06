@@ -1,0 +1,3 @@
+export const SET_APP_VIEW = 'SET_APP_VIEW';
+export const FETCH_NEW_WORD = "FETCH_NEW_WORD";
+export const CHECK_WORD_LETTER = 'CHECK_WORD_LETTER';
