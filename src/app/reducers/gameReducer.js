@@ -1,7 +1,10 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    currentWord: []
+    currentWord: [],
+    wrongGuessCount: 0,
+    maxWrongGuessCount:6,
+    gameOver: false
 }
 
 const appReducer = (state = initialState, action) => {
@@ -29,13 +32,15 @@ const appReducer = (state = initialState, action) => {
                 currentWord : currentWordObj
             };
         case actionTypes.CHECK_WORD_LETTER:
-            console.log('check word', state.currentWord)
+            let hasError = true;
+            let errorCount = state.wrongGuessCount;
             let mappedWord = state.currentWord.map(word => {
-                console.log('word', word);
+                
                 return {
                     ...word,
                     letters: word.letters?.map(letter => {
                     if(letter.value.toLowerCase() === action.payload.toLowerCase()){
+                        hasError = false;
                         return {
                             ...letter,
                             isGuessed: true,
@@ -49,15 +54,26 @@ const appReducer = (state = initialState, action) => {
                             isNew: false
                         }
                     }
-
+                    
+                    
                     return letter;
                 })
                 }
             })
 
-            console.log('mappedWord', mappedWord);
+            if(hasError){
+                errorCount = errorCount += 1;
+            }
+
+            let isGameOver= false;
+            if(errorCount >= state.maxWrongGuessCount){
+                isGameOver = true;
+            }
+
             return {...state,
-                currentWord:  mappedWord
+                currentWord:  mappedWord,
+                wrongGuessCount: errorCount,
+                gameOver: isGameOver
             }
         default:
             return state;

@@ -1,191 +1,233 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { checkWordLetter } from '../../app/actions/gameActions';
 import CssClasses from './RegularKeyboard.module.scss';
 
 
-let buttonInfo = {
-    row1: [
+let buttonInfo = [
         {
             id: 1,
             label: "a",
             value: "a",
-            order: 1
+            order: 1,
+            isUsed: false
         },
         {
             id: 2,
             label: "b",
             value: "b",
-            order: 2
+            order: 2,
+            isUsed: false
+
         },
         {
             id: 3,
             label: "c",
             value: "c",
-            order: 3
+            order: 3,
+            isUsed: false
         },
         {
             id: 4,
             label: "d",
             value: "d",
-            order: 4
+            order: 4,
+            isUsed: false
         },
         {
             id: 5,
             label: "e",
             value: "e",
-            order: 5
+            order: 5,
+            isUsed: false
         },
         {
             id: 6,
             label: "f",
             value: "f",
-            order: 6
+            order: 6,
+            isUsed: false
         },
         {
             id: 7,
             label: "g",
             value: "g",
-            order: 7
+            order: 7,
+            isUsed: false
         },
         {
             id: 8,
             label: "h",
             value: "h",
-            order: 8
+            order: 8,
+            isUsed: false
         },
         {
             id: 9,
             label: "i",
             value: "i",
-            order: 9
+            order: 9,
+            isUsed: false
         },
         {
             id: 10,
             label: "j",
             value: "j",
-            order: 10
+            order: 10,
+            isUsed: false
         },
         {
             id: 11,
             label: "k",
             value: "k",
-            order: 10
+            order: 10,
+            isUsed: false
         },
         {
             id: 12,
             label: "l",
             value: "l",
-            order: 10
+            order: 10,
+            isUsed: false
         },
         {
             id: 13,
             label: "m",
             value: "m",
-            order: 10
-        }
-    ],
-    row2: [
+            order: 10,
+            isUsed: false
+        },
+    
         {
-            id: 1,
+            id: 14,
             label: "n",
             value: "n",
-            order: 1
+            order: 1,
+            isUsed: false
         },
         {
-            id: 2,
+            id: 15,
             label: "o",
             value: "o",
-            order: 2
+            order: 2,
+            isUsed: false
         },
         {
-            id: 3,
+            id: 16,
             label: "p",
             value: "p",
-            order: 3
+            order: 3,
+            isUsed: false
         },
         {
-            id: 4,
+            id: 17,
             label: "q",
             value: "q",
-            order: 4
+            order: 4,
+            isUsed: false
         },
         {
-            id: 5,
+            id: 18,
             label: "r",
             value: "r",
-            order: 5
+            order: 5,
+            isUsed: false
         },
         {
-            id: 6,
+            id: 19,
             label: "s",
             value: "s",
-            order: 6
+            order: 6,
+            isUsed: false
         },
         {
-            id: 7,
+            id: 20,
             label: "t",
             value: "t",
-            order: 7
+            order: 7,
+            isUsed: false
         },
         {
-            id: 8,
+            id: 21,
             label: "u",
             value: "u",
-            order: 8
+            order: 8,
+            isUsed: false
         },
         {
-            id: 9,
+            id: 22,
             label: "v",
             value: "v",
-            order: 9
+            order: 9,
+            isUsed: false
         },
         {
-            id: 10,
+            id: 23,
             label: "w",
             value: "w",
-            order: 10
+            order: 10,
+            isUsed: false
         },
         {
-            id: 11,
+            id: 24,
             label: "x",
             value: "x",
-            order: 10
+            order: 10,
+            isUsed: false
         },
         {
-            id: 12,
+            id: 25,
             label: "y",
             value: "y",
-            order: 10
+            order: 10,
+            isUsed: false
         },
         {
-            id: 13,
+            id: 26,
             label: "z",
             value: "z",
-            order: 10
+            order: 10,
+            isUsed: false
         }
-    ],
-    
-};
+    ];
 
 
 
 const RegularKeyboard = () => {    
 
+    let [buttons, setButtons] = useState(buttonInfo);
+    const gameOver = useSelector((state) => state.game.gameOver);    
     const dispatch = useDispatch();
 
-    const onButtonClick = (value) => {
-        dispatch(checkWordLetter(value))
+    const onButtonClick = (btn) => {
+        if(!gameOver){
+            if(!btn.isUsed){
+                dispatch(checkWordLetter(btn.value))
+                
+                setButtons(buttons.map(button => {
+                    if(button.id === btn.id){
+                        return {
+                            ...button,
+                            isUsed: true
+                        }
+                    }
+                    return {...button};
+                }))
+            }
+        }        
     }
     return (
         <div className={CssClasses.container}>
-            <div className={"row"}>
-                {buttonInfo.row1.map(btn => {
+            <div className={["row", CssClasses['btn-row']].join(" ")}>
+                {buttons.map(btn => {
                     return (
                         <button
                             key={btn.id}
-                            className={CssClasses.btn}
-                          onClick={() => onButtonClick(btn.value)}
+                            className={[
+                                CssClasses.btn,
+                                btn.isUsed ? CssClasses['btn--used']: ""
+                            ].join(" ")}
+                          onClick={() => onButtonClick(btn)}
                         >
                             {btn.label}
                         </button>
@@ -194,19 +236,7 @@ const RegularKeyboard = () => {
             </div>
 
 
-            <div className="row">
-            {buttonInfo.row2.map(btn => {
-                return (
-                    <button
-                        key={btn.id}
-                        className={CssClasses.btn}
-                        onClick={() => onButtonClick(btn.value)}
-                    >
-                        {btn.label}
-                    </button>
-                );
-            })}
-            </div>
+            
             
             
             
