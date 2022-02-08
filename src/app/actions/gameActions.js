@@ -16,9 +16,16 @@ export const checkWordLetter = (value) => {
     }
 }
 
+export const setNewUsername = (username) => {
+    return {
+        type: actionTypes.SET_NEW_USERNAME,
+        payload: username
+    };
+}
+
 
 function fetchWord() {
     return new Promise((resolve) =>
-      setTimeout(() => resolve({ data: 'This is, example!' }), 500)
+        setTimeout(() => resolve({ data: 'This is, example!' }), 500)
     );
-  }
+}

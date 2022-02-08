@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkWordLetter } from '../../app/actions/gameActions';
 import CssClasses from './RegularKeyboard.module.scss';
@@ -197,10 +197,11 @@ const RegularKeyboard = () => {
 
     let [buttons, setButtons] = useState(buttonInfo);
     const gameOver = useSelector((state) => state.game.gameOver);    
+    const completed = useSelector((state) => state.game.completed);    
     const dispatch = useDispatch();
 
     const onButtonClick = (btn) => {
-        if(!gameOver){
+        if(!gameOver && !completed){
             if(!btn.isUsed){
                 dispatch(checkWordLetter(btn.value))
                 
@@ -225,7 +226,7 @@ const RegularKeyboard = () => {
                             key={btn.id}
                             className={[
                                 CssClasses.btn,
-                                btn.isUsed ? CssClasses['btn--used']: ""
+                                btn.isUsed || completed ? CssClasses['btn--used']: ""
                             ].join(" ")}
                           onClick={() => onButtonClick(btn)}
                         >

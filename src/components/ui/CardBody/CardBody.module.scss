@@ -1,0 +1,7 @@
+.container {
+    padding: 10px 15px;
+    display: flex;
+    &.direction--column {
+        flex-direction: column;
+    }   
+}

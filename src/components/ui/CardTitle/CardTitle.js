@@ -1,7 +1,7 @@
 import React from 'react';
-import CssClasses from './CardHeader.module.scss';
+import CssClasses from './CardTitle.module.scss';
 /**
- * Creates card ui element.
+ * Creates card title ui element.
  *
  * @param {String} tag sets the tag of component 
  *  
@@ -9,18 +9,14 @@ import CssClasses from './CardHeader.module.scss';
  * @returns
  */
 
-const CardHeader = () => {
+const CardTitle = (props) => {
+    const Tag = props.tag ? props.tag : "h5";
     return (
-        <>
-        {
-            <tag className={CssClasses.CardHeader}>
-
-            </tag>
-        }
-            
-        </>
+        <Tag className={CssClasses.title}>
+            {props.children}
+        </Tag>
     )
 }
 
 
-export default CardHeader;
+export default CardTitle;
