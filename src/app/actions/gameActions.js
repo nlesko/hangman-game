@@ -1,3 +1,4 @@
+import agent from '../api/agent';
 import * as actionTypes from './actionTypes';
 
 export const fetchNewWord = () => async dispatch => {
@@ -21,6 +22,19 @@ export const setNewUsername = (username) => {
         type: actionTypes.SET_NEW_USERNAME,
         payload: username
     };
+}
+
+// export const fetchHighscore = () => async dispatch => {
+//     const { data } = await 
+// }
+
+export const fetchHighscores = () => async dispatch => {
+    const data = await agent.jsonServer.highscores.list();
+    console.log('fech called')
+    dispatch({
+        type: actionTypes.FETCH_HIGHSCORES,
+        payload: data
+    })
 }
 
 

@@ -198,7 +198,14 @@ const RegularKeyboard = () => {
     let [buttons, setButtons] = useState(buttonInfo);
     const gameOver = useSelector((state) => state.game.gameOver);    
     const completed = useSelector((state) => state.game.completed);    
+    const isNewGame = useSelector((state) => state.game.isNewGame);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if(isNewGame){
+            setButtons(buttonInfo);
+        }
+    }, [isNewGame])
 
     const onButtonClick = (btn) => {
         if(!gameOver && !completed){

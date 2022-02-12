@@ -40,6 +40,7 @@ const Input = ({label, defaultValue, value, ...props}) => {
                 type={props.type ? props.type : "text"}
                 value={inputValue}
                 onChange={onValueChange}
+                className={CssClasses['form-control']}
             />
         </div>
     )

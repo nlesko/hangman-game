@@ -4,6 +4,7 @@ import { Counter } from './features/counter/Counter';
 import './App.css';
 import GameMenu from './containers/GameMenu/GameMenu';
 import Game from './containers/Game/Game';
+import Highscore from './components/Highscore/Highscore';
 import { useSelector } from 'react-redux';
 import { AppViews } from './constants';
 
@@ -20,10 +21,10 @@ function App() {
           <GameMenu />
         )
       case AppViews.game:
-        return <Game />
+        return <Game />      
       default:
         return (
-          <div> test </div>
+          <GameMenu />
         )
     }
   }

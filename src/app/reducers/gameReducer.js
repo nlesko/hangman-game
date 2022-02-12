@@ -2,13 +2,16 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     currentWord: [],
+    currentWordUniqueLetterCount: 0,
     currentWordLetterCount: 0,
     wrongGuessCount: 0,
     correctGuessCount: 0,
     maxWrongGuessCount:6,
     gameOver: false,
     completed: false,
-    username: ''
+    username: '',
+    isNewGame: true,
+    highscores: null
 }
 
 const appReducer = (state = initialState, action) => {
@@ -17,6 +20,7 @@ const appReducer = (state = initialState, action) => {
         console.log('fetching word');
             const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
             let letterCount = 0;
+            
             let currentWordObj = action.payload.split(' ').map((word, i) => {
                 return {                                
                     id: i,
@@ -37,11 +41,13 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 currentWord : currentWordObj,
+                currentWordUniqueLetterCount: [...new Set(action.payload)].length,
                 currentWordLetterCount: letterCount,
                 wrongGuessCount: 0,
                 correctGuessCount: 0,
                 gameOver: false,
-                completed: false  
+                completed: false,
+                isNewGame: true
             };
         case actionTypes.CHECK_WORD_LETTER:
             let hasError = true;
@@ -83,7 +89,7 @@ const appReducer = (state = initialState, action) => {
             if(errorCount >= state.maxWrongGuessCount){
                 isGameOver = true;
             }
-            console.log(state.currentWordLetterCount, guessedLetterCount);
+            
             if(state.currentWordLetterCount === guessedLetterCount){
                 console.log('COMPLETED')
                 isGameCompleted = true;
@@ -94,16 +100,27 @@ const appReducer = (state = initialState, action) => {
                 wrongGuessCount: errorCount,
                 gameOver: isGameOver,
                 correctGuessCount: guessedLetterCount,
-                completed: isGameCompleted
+                completed: isGameCompleted,
+                isNewGame: false
             };
-        case actionTypes.SET_NEW_USERNAME:
-            console.log('settings username', action.payload)
+        case actionTypes.SET_NEW_USERNAME:            
             return {
                 ...state,
                 username: action.payload
             }
             
-            
+        case actionTypes.FETCH_HIGHSCORES:
+            let mappedHighscores = Array.isArray(action.payload) ? action.payload.map(highscore => {
+                return {
+                    ...highscore,
+                    score: Math.round(100/(1 + highscore.errors))
+                }
+            }) 
+            : [];
+            return{
+                ...state,
+                highscores:  [...mappedHighscores]
+            }
         default:
             return state;
     }
