@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import CssClasses from './Input.module.scss';
 
 
@@ -13,36 +13,17 @@ import CssClasses from './Input.module.scss';
  * @returns
  */
 
-const Input = ({label, defaultValue, value, ...props}) => {
-
-    const [inputValue, setInputValue] = useState(defaultValue ? defaultValue : '');
-
-    useEffect(() => {
-        if(value){
-            setInputValue(value);
-        }        
-    }, [value])
-
-    const onValueChange = (e) => {
-        setInputValue(e.target.value);
-        props.onChangeHandler(e.target.value);
-        console.log('text val', e.target.value);
-    }
+const Input = ({type, className, ...props}) => {
 
     return (
-        <div className="container">
-            {label &&
-                <label className={CssClasses.label}>
-                    {label}
-                </label>
-            }
+        
+            
             <input  
-                type={props.type ? props.type : "text"}
-                value={inputValue}
-                onChange={onValueChange}
-                className={CssClasses['form-control']}
+                type={type ? type : "text"}
+                className={[CssClasses['form-control'], className].join(" ")}
+                {...props}
             />
-        </div>
+        
     )
 }
 

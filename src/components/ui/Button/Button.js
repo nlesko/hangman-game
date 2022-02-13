@@ -1,29 +1,43 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CssClasses from './Button.module.scss';
 
 /**
  * Creates button element.
- *
- * @param {String} text sets text of a button
+ * 
  * @param {boolean} isActive sets active class on input if active
- * @param {Object} onClickHanlder function for click evnet
- * @param {Object} style used if needed custom styling
+ * @param {Function} onClickHanlder function for click evnet
+ * @param {object} style used if needed custom styling
  * @param {string} type gives button a type for specific styling example: 'error' or 'primary'
- * @param {Boolean?} inline makes button inline  
+ * @param {string} className sets class for a button from parent component 
+ * @param {string} tag sets tag of a button
  *  
  *
  * @returns
  */
 
-const Button = ({text, style, type, onClickHandler, ...props}) => {
-
+const Button = ({style, type, tag, className, ...props}) => {
+    const Tag = tag;
     return (        
-        <button className={[CssClasses.btn, type ? CssClasses[`btn--${type}`] : ""].join(" ")}
-            onClick={() => onClickHandler()}
+        <Tag className={[CssClasses.btn, CssClasses[`btn--${type}`], className].join(" ")}
+            {...props}
         >
-            {text}
-        </button>
+            {props.children}
+        </Tag>
     )
+}
+
+Button.propTypes = {        
+    className: PropTypes.string,
+    style: PropTypes.shape({}),
+    type: PropTypes.string,
+    tag: PropTypes.string
+}
+
+Button.defaultProps = {    
+    className: '',
+    type: 'primary',
+    tag: 'button'    
 }
 
 export default Button;

@@ -9,9 +9,12 @@ const initialState = {
     maxWrongGuessCount:6,
     gameOver: false,
     completed: false,
-    username: '',
+    userName: '',
     isNewGame: true,
-    highscores: null
+    highscores: [],
+    hint: '',
+    quoteId: '',
+    duration: 0
 }
 
 const appReducer = (state = initialState, action) => {
@@ -20,34 +23,41 @@ const appReducer = (state = initialState, action) => {
         console.log('fetching word');
             const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
             let letterCount = 0;
+            let { content, _id } = action.payload;
+            let currentWordArr = [];
+            let uniqueChars = 0;                
             
-            let currentWordObj = action.payload.split(' ').map((word, i) => {
-                return {                                
-                    id: i,
-                    letters: word.split('').map((letter, iL) => {
-                        if(!specialChars.test(letter)){
-                            letterCount += 1;
-                        }
-                        return {
-                            isGuessed: specialChars.test(letter),
-                            isNew: false,
-                            value: letter,
-                            id: iL
-                        }
-                    })
-                }
-            });
-
+            if(content){
+                 uniqueChars = [...new Set(content.toLowerCase())].length
+                 currentWordArr = content.split(' ').map((word, i) => {
+                    return {                                
+                        id: i,
+                        letters: word.split('').map((letter, iL) => {
+                            if(!specialChars.test(letter)){
+                                letterCount += 1;
+                            }
+                            return {
+                                isGuessed: specialChars.test(letter),
+                                isNew: false,
+                                value: letter,
+                                id: iL
+                            }
+                        })
+                    }
+                });
+            }
             return {
                 ...state,
-                currentWord : currentWordObj,
-                currentWordUniqueLetterCount: [...new Set(action.payload)].length,
+                currentWord : currentWordArr,
+                currentWordUniqueLetterCount: uniqueChars,
                 currentWordLetterCount: letterCount,
                 wrongGuessCount: 0,
                 correctGuessCount: 0,
                 gameOver: false,
                 completed: false,
-                isNewGame: true
+                isNewGame: true,
+                hint: content,
+                quoteId: _id
             };
         case actionTypes.CHECK_WORD_LETTER:
             let hasError = true;
@@ -106,20 +116,40 @@ const appReducer = (state = initialState, action) => {
         case actionTypes.SET_NEW_USERNAME:            
             return {
                 ...state,
-                username: action.payload
+                userName: action.payload
             }
             
         case actionTypes.FETCH_HIGHSCORES:
-            let mappedHighscores = Array.isArray(action.payload) ? action.payload.map(highscore => {
-                return {
-                    ...highscore,
-                    score: Math.round(100/(1 + highscore.errors))
-                }
-            }) 
-            : [];
+            let mappedHighscores = []
+            if(Array.isArray(action.payload)){
+                action.payload.forEach(highscore => {
+                    if(!state.highscores.find(x=> x.id === highscore.id)){
+                        mappedHighscores.push({
+                            ...highscore,
+                            score: Math.round(100/(1 + highscore.errors))
+                        })
+                    }
+                })
+            }
+            
             return{
                 ...state,
-                highscores:  [...mappedHighscores]
+                highscores:  [...state.highscores, ...mappedHighscores]
+            };
+        case actionTypes.SUBMIT_HIGHSCORE:
+            let newHighscore;
+            let hscores = [...state.highscores];
+            if(!state.highscores.find(x=> x.id === action.payload.id)){
+                newHighscore = {
+                    ...action.payload,
+                    score: Math.round(100/(1 + action.payload.errors))
+                }
+
+                hscores = [...state.highscores,newHighscore]
+            }
+            return {
+                ...state,
+                highscores: [...hscores]
             }
         default:
             return state;

@@ -2,11 +2,10 @@ import agent from '../api/agent';
 import * as actionTypes from './actionTypes';
 
 export const fetchNewWord = () => async dispatch => {
-    const response = await fetchWord();
-
+    const data = await agent.quotable.random()
     dispatch({
         type: actionTypes.FETCH_NEW_WORD,
-        payload: response.data
+        payload: data
     })
 }
 
@@ -17,10 +16,10 @@ export const checkWordLetter = (value) => {
     }
 }
 
-export const setNewUsername = (username) => {
+export const setNewUserName = (userName) => {
     return {
         type: actionTypes.SET_NEW_USERNAME,
-        payload: username
+        payload: userName
     };
 }
 
@@ -29,17 +28,31 @@ export const setNewUsername = (username) => {
 // }
 
 export const fetchHighscores = () => async dispatch => {
-    const data = await agent.jsonServer.highscores.list();
-    console.log('fech called')
+    const data = await agent.jsonServer.highscores.list();    
     dispatch({
         type: actionTypes.FETCH_HIGHSCORES,
         payload: data
     })
 }
 
-
-function fetchWord() {
-    return new Promise((resolve) =>
-        setTimeout(() => resolve({ data: 'This is, example!' }), 500)
-    );
+export const submitHighscore = (result) => async dispatch => {
+    const data = await agent.jsonServer.highscores.submit(result)
+    console.log('data', data);
+    dispatch({
+        type: actionTypes.SUBMIT_HIGHSCORE,
+        payload: data
+    })
 }
+
+
+// function fetchWord() {
+//     return new Promise((resolve) =>
+//         setTimeout(() => resolve(
+//             { data: {
+//                 _id: 'ff24agqqw',
+//                 content: 'This is, example!',
+//                 length: 'This is, example!'.length,
+//             }}
+//         ), 2000)
+//     );
+// }

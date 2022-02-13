@@ -1,10 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import './App.css';
 import GameMenu from './containers/GameMenu/GameMenu';
 import Game from './containers/Game/Game';
-import Highscore from './components/Highscore/Highscore';
 import { useSelector } from 'react-redux';
 import { AppViews } from './constants';
 
@@ -14,7 +11,7 @@ function App() {
 
 
   const renderView = () => {
-    console.log('current app view', appView);
+    
     switch(appView){
       case AppViews.gameMenu:
         return (

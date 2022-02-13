@@ -2,39 +2,39 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import CssClasses from './GameMenu.module.scss';
 import { setAppView } from '../../app/actions/appActions';
-import { setNewUsername, fetchNewWord } from '../../app/actions/gameActions';
-import {
-    Label,
+import { setNewUserName, fetchNewWord } from '../../app/actions/gameActions';
+import {    
     Button,
     Input,
     Card,
     CardTitle,
-    CardBody
+    CardBody,
+    InputGroup
 } from '../../components/ui';
 import { AppViews } from '../../constants';
 
 const GameMenu = () => {
     const dispatch = useDispatch();
-    const [username, setUsername] = useState('');
-    const [showUsernameValidationError, setShowUsernameValidationError] = useState(false);
+    const [userName, setUserName] = useState('');
+    const [showUserNameValidationError, setShowUserNameValidationError] = useState(false);
 
-    const onUsernameChangeHandler = (value) => {
-        setUsername(value)
-        if(value.length > 3 && showUsernameValidationError && showUsernameValidationError){
-            setShowUsernameValidationError(false);
-        } else if(value.length <= 3 && !showUsernameValidationError){
-            setShowUsernameValidationError(true);
+    const onUsernameChangeHandler = (e) => {
+        setUserName(e.target.value)
+        if(e.target.value.length > 3 && showUserNameValidationError && showUserNameValidationError){
+            setShowUserNameValidationError(false);
+        } else if(e.target.value.length <= 3 && !showUserNameValidationError){
+            setShowUserNameValidationError(true);
         }
     }
 
     const confirmClickHandler = () => {
-        if(username.length > 3){
-            setShowUsernameValidationError(true)
-            dispatch(setNewUsername(username));
+        if(userName.length > 3){
+            setShowUserNameValidationError(true)
+            dispatch(setNewUserName(userName));
             dispatch(setAppView(AppViews.game));
             dispatch(fetchNewWord())
         } else {
-            setShowUsernameValidationError(true);
+            setShowUserNameValidationError(true);
         }
         
     }   
@@ -57,18 +57,22 @@ const GameMenu = () => {
 
                 </Card>
             </div>
-            <Label />
-            <Input onChangeHandler={onUsernameChangeHandler} />
-            {showUsernameValidationError &&
+            
+            
+            <InputGroup>            
+            <Input value={userName} onChange={(e) => onUsernameChangeHandler(e)} placeholder="Ente your name" />
+            {showUserNameValidationError &&
                 <span className={CssClasses['validation-error']}>
                     Please enter usrename that is 3 characters or more long.
                 </span>
             }
+            </InputGroup>
             
             <Button
-                onClickHandler={confirmClickHandler}
-                text="Confirm"
-            />
+                onClick={confirmClickHandler}                
+            >
+                Start game
+            </Button>
         </div>
     )
 }

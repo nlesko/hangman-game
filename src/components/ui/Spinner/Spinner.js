@@ -3,8 +3,10 @@ import CssClasses from './Spinner.module.scss';
 
 const Spinner = () => {
     return (
-        <div className={CssClasses.loading}>
+        <div className={CssClasses.spinner}>
+            <div className={CssClasses.loading}>
 
+            </div>
         </div>
     )
 }

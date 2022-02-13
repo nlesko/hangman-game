@@ -1,9 +1,9 @@
 import React from 'react';
 
-const InputGroup = () => {
+const InputGroup = (props) => {
     return (
         <div>
-
+            {props.children}
         </div>
     )
 }

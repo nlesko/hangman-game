@@ -11,13 +11,13 @@ const jsonServerAxios = axios.create({
 const responseBody = (response) => response.data;
 
 const quotable = {
-    random: quotableAxios.get('/random').then(responseBody)
+    random: () => quotableAxios.get('/random').then(responseBody)
 }
 
 
 const highscores = {
     list: () => jsonServerAxios.get('/highscores').then(responseBody),
-    submit: (data) => jsonServer.post('/highscores', data).then(responseBody)
+    submit: (data) => jsonServerAxios.post('/highscores', data).then(responseBody)
 }
 
 const jsonServer = {
