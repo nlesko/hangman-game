@@ -4,13 +4,13 @@ This is hangman game built in react, using redux for state and axios for API cal
 
 To get start with game you have to:
 
-## 1) `git glone` repository
+### 1) `git clone` repository
 
-## 2) `cd` into game folder
+### 2) `cd` into game folder
 
-## 3) `npm install` to install all dependencies
+### 3) `npm install` to install all dependencies
 
-## 4) `npm start` to run game on your local machine
+### 4) `npm start` to run game on your local machine
 ## Available Scripts
 
 In the project directory, you can run:
