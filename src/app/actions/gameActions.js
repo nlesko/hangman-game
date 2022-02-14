@@ -1,3 +1,4 @@
+// import { uuidv4 } from '../../shared/helpers';
 import agent from '../api/agent';
 import * as actionTypes from './actionTypes';
 
@@ -36,20 +37,19 @@ export const fetchHighscores = () => async dispatch => {
 }
 
 export const submitHighscore = (result) => async dispatch => {
-    const data = await agent.jsonServer.highscores.submit(result)
-    console.log('data', data);
+    const data = await agent.jsonServer.highscores.submit(result)    
     dispatch({
         type: actionTypes.SUBMIT_HIGHSCORE,
         payload: data
     })
 }
 
-
+// used for testing
 // function fetchWord() {
 //     return new Promise((resolve) =>
 //         setTimeout(() => resolve(
 //             { data: {
-//                 _id: 'ff24agqqw',
+//                 _id: uuidv4,
 //                 content: 'This is, example!',
 //                 length: 'This is, example!'.length,
 //             }}

@@ -20,7 +20,7 @@ const initialState = {
 const appReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_NEW_WORD:            
-        console.log('fetching word');
+        
             const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
             let letterCount = 0;
             let { content, _id } = action.payload;
@@ -101,7 +101,6 @@ const appReducer = (state = initialState, action) => {
             }
             
             if(state.currentWordLetterCount === guessedLetterCount){
-                console.log('COMPLETED')
                 isGameCompleted = true;
             }
 

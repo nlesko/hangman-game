@@ -19,7 +19,6 @@ const Highscore = (props) => {
     useEffect(() => {
         if (highscores) {
             setLoading(false);
-            console.log(highscores);
         }
     }, [highscores])
     
