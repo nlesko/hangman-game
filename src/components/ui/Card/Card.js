@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes  from 'prop-types';
-import CssClasses from './Card.module.scss';
 
 /**
  * Creates card ui element.
@@ -12,10 +11,16 @@ import CssClasses from './Card.module.scss';
  * @returns
  */
 
-const Card = (props) => {
+const Card = ({ row, children, ...rest}) => {
+    const classes = ['card'];
+
+    if(row){
+        classes.push('flex-row')
+    }
+
     return(
-        <div className={[CssClasses.card, props.row ? CssClasses['card--row']: "", props.className].join(" ")}>
-            {props.children}
+        <div className={classes.join(' ')} {...rest}>
+            {children}
         </div>
     )
 }

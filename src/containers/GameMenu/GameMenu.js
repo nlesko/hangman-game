@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import CssClasses from './GameMenu.module.scss';
 import { setAppView } from '../../app/actions/appActions';
 import { setNewUserName, fetchNewWord } from '../../app/actions/gameActions';
-import {    
+import {
     Button,
     Input,
     Card,
@@ -15,64 +14,26 @@ import { AppViews } from '../../constants';
 
 const GameMenu = () => {
     const dispatch = useDispatch();
-    const [userName, setUserName] = useState('');
-    const [showUserNameValidationError, setShowUserNameValidationError] = useState(false);
-
-    const onUsernameChangeHandler = (e) => {
-        setUserName(e.target.value)
-        if(e.target.value.length > 3 && showUserNameValidationError && showUserNameValidationError){
-            setShowUserNameValidationError(false);
-        } else if(e.target.value.length <= 3 && !showUserNameValidationError){
-            setShowUserNameValidationError(true);
-        }
-    }
 
     const confirmClickHandler = () => {
-        if(userName.length > 3){
-            setShowUserNameValidationError(true)
-            dispatch(setNewUserName(userName));
             dispatch(setAppView(AppViews.game));
             dispatch(fetchNewWord())
-        } else {
-            setShowUserNameValidationError(true);
-        }
-        
-    }   
+    }
 
     return (
-        <div className={CssClasses.container}>
-            <div className="card">
-                <Card>
-                    <CardTitle tag="h1">
-                        Welcome to hangman
-                    </CardTitle>
-                    <CardBody>
-                        <div>
-                            <h4>Instructions</h4>
-                            <ul>
-                                <li>Enter name</li>
-                            </ul>
-                        </div>
-                    </CardBody>
-
-                </Card>
+        <div className="flex items-center justify-center h-screen bg-slate-900">
+            <div className="text-center bg-slate-800 p-8 rounded-lg shadow-lg max-w-md">
+                <h1 className="text-4xl font-bold text-white mb-4">Hangman Game</h1>
+                <p className="text-gray-400 mb-8">
+                    Guess the word before you run out of attempts. Can you save the stick figure?
+                </p>
+                <button
+                    onClick={confirmClickHandler}
+                    className="px-6 py-3 bg-blue-500 text-white rounded-lg text-lg font-semibold hover:bg-blue-600 transition-colors duration-300"
+                >
+                    Start Game
+                </button>
             </div>
-            
-            
-            <InputGroup>            
-            <Input value={userName} onChange={(e) => onUsernameChangeHandler(e)} placeholder="Ente your name" />
-            {showUserNameValidationError &&
-                <span className={CssClasses['validation-error']}>
-                    Please enter usrename that is 3 characters or more long.
-                </span>
-            }
-            </InputGroup>
-            
-            <Button
-                onClick={confirmClickHandler}                
-            >
-                Start game
-            </Button>
         </div>
     )
 }

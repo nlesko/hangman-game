@@ -11,8 +11,6 @@ import {
     Button,
     Spinner
 } from '../../components/ui';
-import { fetchHighscores, fetchNewWord, submitHighscore } from '../../app/actions/gameActions';
-import Highscore from '../../components/Highscore/Highscore';
 
 const Game = () => {
     const [time, setTime] = useState(0)
@@ -21,18 +19,6 @@ const Game = () => {
     const { currentWord, wrongGuessCount, maxWrongGuessCount, userName, completed, gameOver, hint, quoteId, currentWordUniqueLetterCount, currentWordLetterCount } = useSelector((state) => state.game);
     const [loading, setLoading] = useState(true);
     const [showHint, setShowHint] = useState(false);
-
-    const onGameEnd = useCallback(() => {
-        dispatch(submitHighscore({
-            quoteId,
-            uniqueCharacters: currentWordUniqueLetterCount,
-            length: currentWordLetterCount,
-            userName,
-            errors: wrongGuessCount,
-            duration: time
-        }));
-        dispatch(fetchHighscores())
-    }, [currentWordLetterCount, wrongGuessCount, userName, time, quoteId, currentWordUniqueLetterCount, dispatch]);
 
 
     useEffect(() => {
@@ -62,12 +48,12 @@ const Game = () => {
 
     }, [loading, completed, gameOver])
 
-    useEffect(() => {
-        if (completed) {
-            onGameEnd();
+    // useEffect(() => {
+    //     if (completed) {
+    //         onGameEnd();
 
-        }
-    }, [completed, onGameEnd])
+    //     }
+    // }, [completed, onGameEnd])
 
 
 
@@ -130,18 +116,6 @@ const Game = () => {
                         </div>
 
                     </CardBody>
-                </Card>
-                <Card className={CssClasses['highscore-wrapper']}>
-                    {completed && <>
-                        <CardTitle>Highscores</CardTitle>
-                        <CardBody>
-
-                            <Highscore />
-
-
-                        </CardBody>
-                    </>
-                    }
                 </Card>
             </div>
         </div>

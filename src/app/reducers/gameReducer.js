@@ -11,7 +11,6 @@ const initialState = {
     completed: false,
     userName: '',
     isNewGame: true,
-    highscores: [],
     hint: '',
     quoteId: '',
     duration: 0
@@ -116,39 +115,6 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 userName: action.payload
-            }
-            
-        case actionTypes.FETCH_HIGHSCORES:
-            let mappedHighscores = []
-            if(Array.isArray(action.payload)){
-                action.payload.forEach(highscore => {
-                    if(!state.highscores.find(x=> x.id === highscore.id)){
-                        mappedHighscores.push({
-                            ...highscore,
-                            score: Math.round(100/(1 + highscore.errors))
-                        })
-                    }
-                })
-            }
-            
-            return{
-                ...state,
-                highscores:  [...state.highscores, ...mappedHighscores]
-            };
-        case actionTypes.SUBMIT_HIGHSCORE:
-            let newHighscore;
-            let hscores = [...state.highscores];
-            if(!state.highscores.find(x=> x.id === action.payload.id)){
-                newHighscore = {
-                    ...action.payload,
-                    score: Math.round(100/(1 + action.payload.errors))
-                }
-
-                hscores = [...state.highscores,newHighscore]
-            }
-            return {
-                ...state,
-                highscores: [...hscores]
             }
         default:
             return state;

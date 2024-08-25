@@ -23,36 +23,3 @@ export const setNewUserName = (userName) => {
         payload: userName
     };
 }
-
-// export const fetchHighscore = () => async dispatch => {
-//     const { data } = await 
-// }
-
-export const fetchHighscores = () => async dispatch => {
-    const data = await agent.jsonServer.highscores.list();    
-    dispatch({
-        type: actionTypes.FETCH_HIGHSCORES,
-        payload: data
-    })
-}
-
-export const submitHighscore = (result) => async dispatch => {
-    const data = await agent.jsonServer.highscores.submit(result)    
-    dispatch({
-        type: actionTypes.SUBMIT_HIGHSCORE,
-        payload: data
-    })
-}
-
-// used for testing
-// function fetchWord() {
-//     return new Promise((resolve) =>
-//         setTimeout(() => resolve(
-//             { data: {
-//                 _id: uuidv4,
-//                 content: 'This is, example!',
-//                 length: 'This is, example!'.length,
-//             }}
-//         ), 2000)
-//     );
-// }

@@ -1,5 +1,4 @@
 import React from 'react';
-import CssClasses from './CardTitle.module.scss';
 import PropTypes from 'prop-types';
 
 /**
@@ -11,11 +10,11 @@ import PropTypes from 'prop-types';
  * @returns
  */
 
-const CardTitle = (props) => {
-    const Tag = props.tag;
+const CardTitle = ({tag, children, ...rest}) => {
+    const Tag = tag || 'h5';
     return (
-        <Tag className={[CssClasses.title, props.className].join(" ")}>
-            {props.children}
+        <Tag className="" {...rest}>
+            {children}
         </Tag>
     )
 }
