@@ -6,25 +6,24 @@ import CssClasses from './GuessingWord.module.scss';
 const GuessingWord = () => {
     
     const currentWord = useSelector((state) => state.game.currentWord);    
-    
-    // useEffect(() => {
-
-    // }, [currentWord])
 
     return(
-        <div className={CssClasses.container}>
-            {currentWord.length >  0&& currentWord?.map(word => {                
+        <div className="flex flex-row gap-8 justify-center my-5">
+            {currentWord.length >  0 && currentWord?.map(word => {                
                 return (
-                    <span key={word.id} className={CssClasses['word']}>
+                    <div key={word.id} className="flex gap-2">
                     {word.letters.length > 0 ?  word.letters.map(letter => {                        
                         return(
-                            <span key={letter.id} className={[CssClasses['letter'], letter.isNew ? CssClasses['letter--new'] : ""].join(" ")}>
-                                {letter.isGuessed ? letter.value : ""}
-                            </span>
+                            <div
+                                key={letter.id}
+                                className={`w-12 h-12 flex items-center justify-center border-2 border-blue-600 rounded-md text-2xl font-semibold text-white bg-blue-800 transition duration-1000 ease-out ${letter.isGuessed ? 'opacity-100' : 'opacity-20'}`}
+                                >
+                                {letter.isGuessed ? letter.value : ''}
+                            </div>
                         )
                         }): null                        
                     }
-                    </span>
+                    </div>
                 )
             })}
         </div>

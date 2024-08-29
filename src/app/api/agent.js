@@ -25,13 +25,19 @@ axios.interceptors.response.use(async response => {
 })
 
 const quotableAxios = axios.create({
-    baseURL: 'http://api.quotable.io'
+    baseURL: 'https://api.quotable.io'
 })
 
 const responseBody = (response) => response.data;
 
 const quotable = {
-    random: () => quotableAxios.get('/random').then(responseBody)
+    // random: () => quotableAxios.get('/random').then(responseBody)
+    random: () => {
+        return {
+            content: 'random content',
+            uniqueId: 'randomId'
+        }
+    }
 }
 
 const agent = {

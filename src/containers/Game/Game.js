@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import CssClasses from './Game.module.scss';
 import RegularKeyboard from '../../components/RegularKeyboard/RegularKeyboard';
 import GuessingWord from '../../components/GuessingWord/GuessingWord';
+import { fetchNewWord } from '../../app/actions/gameActions';
 
 import {
     Card,
@@ -75,48 +75,33 @@ const Game = () => {
     }
 
     return (
-        <div className={CssClasses.container}>
-            <div className={'row'}>
-                <Card className={CssClasses['game-wrapper']}>
-                    <CardTitle tag="h1">
-                        Game has started {userName}, good luck!
-
-                    </CardTitle>
+        <div className="flex items-center justify-center h-screen bg-slate-900">
+            <div className="text-center bg-slate-800 p-8 rounded-lg shadow-lg">
+                <h1 className="text-6xl font-bold text-white mb-4">Game has started {userName}, good luck!</h1>
                     <CardBody column>
-
-
-                        <h3>{wrongGuessCount} / {maxWrongGuessCount} errors</h3>
-                        <div className={CssClasses['action wrapper']}>
+                        <span>{wrongGuessCount} / {maxWrongGuessCount} errors</span>
+                        <div>
                             {gameOver || completed ? (
                                 <Button onClick={restartGame}>
                                     {gameOver ? "Gameover!" : ""} Start new game?
                                 </Button>
                             ) : (
                                 <Button onClick={toggleHint}>
-
                                     Need help?
                                 </Button>
                             )}
                         </div>
-                        
-                        
-                                <div className={CssClasses['guessingword-wrapper']}>
-                                    <GuessingWord />
-                                    <div>
-                                        
-                                        {showHint && <span>The word you are looking for is: {hint}</span>}
-                                    </div>
-                                </div>
-                            
-                    
-
-                        <div className={CssClasses['keyboard-wrapper']}>
+                        <div>
+                            <GuessingWord />
+                            <div>
+                                {showHint && <span>The word you are looking for is: {hint}</span>}
+                            </div>
+                        </div>
+                        <div>
                             <RegularKeyboard />
-                            
                         </div>
 
                     </CardBody>
-                </Card>
             </div>
         </div>
     )

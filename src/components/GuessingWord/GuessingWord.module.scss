@@ -1,5 +1,4 @@
 .container {
-
     .word{
         display: inline-block;
         &:not(:first-of-type){
@@ -13,7 +12,7 @@
         font-size: 1rem;
         border-bottom: 3px solid transparent;
         &:empty {
-            border-color: black;
+            border-color: white;
         }
         &:not(:first-of-type){
             margin-left: 3px;
