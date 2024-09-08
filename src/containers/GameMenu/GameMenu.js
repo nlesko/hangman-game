@@ -1,15 +1,7 @@
-import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setAppView } from '../../app/actions/appActions';
-import { setNewUserName, fetchNewWord } from '../../app/actions/gameActions';
-import {
-    Button,
-    Input,
-    Card,
-    CardTitle,
-    CardBody,
-    InputGroup
-} from '../../components/ui';
+import { fetchNewWord } from '../../app/actions/gameActions';
+import { Button } from '../../components/ui';
 import { AppViews } from '../../constants';
 
 const GameMenu = () => {
@@ -27,12 +19,9 @@ const GameMenu = () => {
                 <p className="text-gray-400 text-xl mb-8">
                     Guess the word before you run out of attempts. Can you save the stick figure?
                 </p>
-                <button
-                    onClick={confirmClickHandler}
-                    className="px-6 py-3 bg-blue-500 text-white rounded-lg text-2xl font-semibold hover:bg-blue-600 transition-colors duration-300"
-                >
+                <Button onClick={confirmClickHandler}>
                     Start Game
-                </button>
+                </Button>
             </div>
         </div>
     )

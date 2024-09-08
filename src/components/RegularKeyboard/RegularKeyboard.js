@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkWordLetter } from '../../app/actions/gameActions';
-import CssClasses from './RegularKeyboard.module.scss';
-
 
 let buttonInfo = [
         {
@@ -224,16 +222,17 @@ const RegularKeyboard = () => {
             }
         }        
     }
+    const btnUsedClasses = 'bg-sky-200 text-gray-500 cursor-not-allowed';
     return (
-        <div className={CssClasses.container}>
-            <div className={["row", CssClasses['btn-row']].join(" ")}>
+        <div className="mx-5 my-8">
+            <div className="flex gap-2">
                 {buttons.map(btn => {
                     return (
                         <button
                             key={btn.id}
                             className={[
-                                CssClasses.btn,
-                                btn.isUsed || completed ? CssClasses['btn--used']: ""
+                                "w-12 h-12 flex items-center justify-center border-2 border-sky-400 rounded-md text-2xl font-semibold text-white bg-sky-500  transition duration-1000 ease-out",
+                                btn.isUsed || completed ? btnUsedClasses : "hover:bg-sky-600"
                             ].join(" ")}
                           onClick={() => onButtonClick(btn)}
                         >

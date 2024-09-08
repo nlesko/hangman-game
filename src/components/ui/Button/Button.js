@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CssClasses from './Button.module.scss';
 
 /**
  * Creates button element.
@@ -19,7 +18,7 @@ import CssClasses from './Button.module.scss';
 const Button = ({style, type, tag, className, ...props}) => {
     const Tag = tag;
     return (        
-        <Tag className={[CssClasses.btn, CssClasses[`btn--${type}`], className].join(" ")}
+        <Tag className="px-6 py-3 bg-sky-500 text-white rounded-lg text-2xl font-semibold hover:bg-sky-600 transition-colors duration-500"
             {...props}
         >
             {props.children}

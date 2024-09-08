@@ -1,7 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import CssClasses from './GuessingWord.module.scss';
-
 
 const GuessingWord = () => {
     
@@ -16,7 +14,7 @@ const GuessingWord = () => {
                         return(
                             <div
                                 key={letter.id}
-                                className={`w-12 h-12 flex items-center justify-center border-2 border-blue-600 rounded-md text-2xl font-semibold text-white bg-blue-800 transition duration-1000 ease-out ${letter.isGuessed ? 'opacity-100' : 'opacity-20'}`}
+                                className={`w-12 h-12 flex items-center justify-center border-2 border-cyan-600 rounded-md text-2xl font-semibold text-white bg-cyan-700 transition duration-1000 ease-out ${letter.isGuessed ? '' : 'opacity-20'}`}
                                 >
                                 {letter.isGuessed ? letter.value : ''}
                             </div>
