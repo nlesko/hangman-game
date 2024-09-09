@@ -3,7 +3,7 @@ import agent from '../api/agent';
 import * as actionTypes from './actionTypes';
 
 export const fetchNewWord = () => async dispatch => {
-    const data = await agent.quotable.random()
+    const data = await agent.randomWord.random()
     dispatch({
         type: actionTypes.FETCH_NEW_WORD,
         payload: data

@@ -12,7 +12,6 @@ const initialState = {
     userName: '',
     isNewGame: true,
     hint: '',
-    quoteId: '',
     duration: 0
 }
 
@@ -21,7 +20,8 @@ const appReducer = (state = initialState, action) => {
         case actionTypes.FETCH_NEW_WORD:            
             const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
             let letterCount = 0;
-            let { content, _id } = action.payload;
+            console.log('action payload', action.payload)
+            let content = action.payload;
             let currentWordArr = [];
             let uniqueChars = 0;                
             
@@ -54,8 +54,7 @@ const appReducer = (state = initialState, action) => {
                 gameOver: false,
                 completed: false,
                 isNewGame: true,
-                hint: content,
-                quoteId: _id
+                hint: content
             };
         case actionTypes.CHECK_WORD_LETTER:
             let hasError = true;

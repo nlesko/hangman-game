@@ -24,24 +24,18 @@ axios.interceptors.response.use(async response => {
     return Promise.reject(error);
 })
 
-const quotableAxios = axios.create({
-    baseURL: 'https://api.quotable.io'
+const randomWordAxios = axios.create({
+    baseURL: 'https://random-word-api.herokuapp.com'
 })
 
-const responseBody = (response) => response.data;
+const responseBody = (response) => response.data[0];
 
-const quotable = {
-    // random: () => quotableAxios.get('/random').then(responseBody)
-    random: () => {
-        return {
-            content: 'random content',
-            uniqueId: 'randomId'
-        }
-    }
+const randomWord = {
+    random: () => randomWordAxios.get('/word').then(responseBody)
 }
 
 const agent = {
-    quotable,
+    randomWord,
 }
 
 export default agent;

@@ -220,7 +220,7 @@ const RegularKeyboard = () => {
             }
         }        
     }
-    const btnUsedClasses = 'bg-sky-200 text-gray-500 cursor-not-allowed';
+    const btnUsedClasses = 'border-sky-100 bg-sky-200 text-gray-500 cursor-not-allowed';
     return (
         <div className="mx-5 my-8">
             <div className="flex gap-2">
@@ -229,8 +229,8 @@ const RegularKeyboard = () => {
                         <button
                             key={btn.id}
                             className={[
-                                "w-12 h-12 flex items-center justify-center border-2 border-sky-400 rounded-md text-2xl font-semibold text-white bg-sky-500  transition duration-1000 ease-out",
-                                btn.isUsed || completed ? btnUsedClasses : "hover:bg-sky-600"
+                                "w-12 h-12 flex items-center justify-center border-2 rounded-md text-2xl font-semibold transition duration-1000 ease-out",
+                                btn.isUsed || completed ? btnUsedClasses : "border-sky-400 text-white bg-sky-500  hover:bg-sky-600"
                             ].join(" ")}
                           onClick={() => onButtonClick(btn)}
                         >
