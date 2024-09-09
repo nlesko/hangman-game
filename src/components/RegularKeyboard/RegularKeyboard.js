@@ -189,8 +189,6 @@ let buttonInfo = [
         }
     ];
 
-
-
 const RegularKeyboard = () => {    
 
     let [buttons, setButtons] = useState(buttonInfo);

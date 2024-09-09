@@ -7,6 +7,7 @@ import {
     Button,
     Spinner
 } from '../../components/ui';
+import HangmanDrawing from '../../components/HangmanDrawing/HangmanDrawing';
 
 const Game = () => {
     const [time, setTime] = useState(0)
@@ -77,7 +78,8 @@ const Game = () => {
             <div className="text-center bg-slate-800 p-8 rounded-lg shadow-lg">
                 <h1 className="text-6xl font-bold text-white mb-4">Game has started {userName}, good luck!</h1>
                 <div className="flex flex-col gap-4">
-                    <span className="text-gray-400 text-xl my-4">{wrongGuessCount} / {maxWrongGuessCount} errors - Time: { time }</span>
+                    <span className="text-gray-400 text-xl mt-4 mb-2">{wrongGuessCount} / {maxWrongGuessCount} errors - Time: { time }</span>
+                    <HangmanDrawing wrongGuesses={wrongGuessCount} />
                     <div>
                         {gameOver || completed ? (
                             <Button onClick={restartGame}>
